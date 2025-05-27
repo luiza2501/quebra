@@ -2,15 +2,13 @@ using UnityEngine;
 
 public class TileData : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public int CorrectIndex;
+    public int CurrentIndex;
 
-    // Update is called once per frame
-    void Update()
+    public void SetIndex(int index)
     {
-        
+        CurrentIndex = index;
+        transform.SetSiblingIndex(index);
     }
 }
+

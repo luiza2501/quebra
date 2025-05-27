@@ -1,16 +1,35 @@
-using UnityEngine;
-
-public class SwapCommand : MonoBehaviour
+using UnityEngine;    // <— adicione esta linha
+public class SwapCommand : ICommand
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private TileData tileA, tileB;
+
+    public SwapCommand(TileData a, TileData b)
     {
-        
+        tileA = a;
+        tileB = b;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Execute()
     {
-        
+        Swap();
+    }
+
+    public void Undo()
+    {
+        Swap();
+    }
+
+    private void Swap()
+    {
+        int indexA = tileA.CurrentIndex;
+        int indexB = tileB.CurrentIndex;
+
+        tileA.SetIndex(indexB);
+        tileB.SetIndex(indexA);
+
+        // Agora o compilador "vê" o Transform corretamente
+        Transform parent = tileA.transform.parent;
+        parent.GetChild(indexA).SetSiblingIndex(indexB);
+        parent.GetChild(indexB).SetSiblingIndex(indexA);
     }
 }
